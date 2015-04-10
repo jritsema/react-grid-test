@@ -4,7 +4,17 @@ var request = require('browser-request')
 
 module.exports = React.createClass({
 
-  url: 'https://brilliant-inferno-2993.firebaseio.com/prayersForChildren.json',
+  url: 'http://api.openweathermap.org/data/2.5/forecast/daily?q=Marietta%2C%20GA&units=imperial&cnt=5',
+
+  columns: [
+    'dt',
+    'clouds',
+    'rain',
+    'speed',
+    'humidity',
+    'pressure',
+    'deg'
+  ],
 
   getInitialState: function() {
     return { data: [] };
@@ -14,7 +24,7 @@ module.exports = React.createClass({
     request(this.url, function(err, res) {
       if (err) throw err;
       var data = JSON.parse(res.body);
-      this.setState({ data: data });
+      this.setState({ data: data.list });
     }.bind(this));
   },
 
@@ -25,6 +35,7 @@ module.exports = React.createClass({
     if (this.state.data.length > 0)
       content = <Griddle 
         results={this.state.data} 
+        columns={this.columns}
         resultsPerPage={100} 
         showPager={false} 
         showFilter={true}
@@ -34,7 +45,7 @@ module.exports = React.createClass({
 
     return (
       <div className="starter-template">
-        <h3>Griddle</h3>
+        <h3>{this.url}</h3>
         {content}
       </div>
     );
