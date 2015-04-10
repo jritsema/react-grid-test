@@ -34,7 +34,7 @@ module.exports = React.createClass({
 
     return (
       <div className="starter-template">
-        <h3>View 2</h3>
+        <h3>Griddle</h3>
         {content}
       </div>
     );
